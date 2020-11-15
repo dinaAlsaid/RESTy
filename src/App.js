@@ -1,11 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './design/base.scss';
+import Header from './components/header/header.js';
+import Footer from './components/footer/footer.js';
+import Form from './components/form/form';
 
-function App() {
-  return (
-    <div className="App">
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Header />
+        <Form />
+        <Footer />
+      </>
+
+    )
+  }
 }
+
 
 export default App;
