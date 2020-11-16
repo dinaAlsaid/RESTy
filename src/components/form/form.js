@@ -9,20 +9,29 @@ class Form extends React.Component {
       method: 'GET',
     };
   }
-  clickHandler = (e) => {
+  clickHandler = async (e) => {
     e.preventDefault();
-    this.setState({ url: document.getElementById('url').value });
-    document.getElementById('url').value = ' ';
+    if(document.getElementById('url').value !== ''){
+      await this.setState({ url: document.getElementById('url').value });
+    }else{
+      await this.setState({results : ['no url defined']})
+    }
+    fetch(this.state.url,{method:this.state.method})
+    .then(raw => raw.json())
+    .then((data) => {
+      this.props.resultHandler(data);
+    });
+    document.getElementById('url').value = '';
   }
-  methodHandler = (e) => {
+  methodHandler = async (e) => {
     e.preventDefault();
-    this.setState({ method: e.target.value });
+    await this.setState({ method: e.target.value });
 
   }
   render() {
     return (
       <>
-        <form>
+        <form onSubmit={this.clickHandler} data-testid='submitForm'>
           <div>
             <button value='GET' onClick={this.methodHandler}>GET</button>
             <button value='POST' onClick={this.methodHandler}>POST</button>
@@ -30,13 +39,15 @@ class Form extends React.Component {
             <button value='DELETE' onClick={this.methodHandler}>DELETE</button>
           </div>
           <div>
-            <input type='text' id='url' autoComplete='false' />
-            <input type='submit' value='submit' onClick={this.clickHandler} />
+            <input type='text' id='url' autoComplete='false'  data-testid='inputField'/>
+            <input type='submit' value='GO'  data-testid='submitBtn'/>
 
           </div>
         </form>
-        <div className='output'>
-          {this.state.method} {this.state.url}
+        <div className='output' >
+          <div>{this.state.method}</div>
+          <div data-testid='output'>{this.state.url}</div>
+           
         </div>
 
       </>
