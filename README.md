@@ -1,4 +1,4 @@
-# LAB - Class 26
+# LAB - Class 27
 
 ## Project: RESTy
 
@@ -21,13 +21,14 @@ i.e.
 #### How to initialize/run your application
 
 - `npm start`
+- `npm test`
 
 #### How to use your library
 
 #### Tests
 
-none yet
+Test data is being fetched when form is submitted
 
 #### UML
 
-![UML](./assets/lab26.png)
+![UML](./assets/lab27.png)
