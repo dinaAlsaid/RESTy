@@ -31,4 +31,4 @@ Test data is being fetched when form is submitted
 
 #### UML
 
-![UML](./assets/lab27.png)
+![UML](./src/assets/lab27.png)
