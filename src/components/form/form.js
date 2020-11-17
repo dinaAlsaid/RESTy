@@ -24,11 +24,13 @@ class Form extends React.Component {
     document.getElementById('url').value = '';
   }
   updateHistory = async (body)=>{
+    await this.setState({storedQueries: JSON.parse(localStorage.getItem('history'))});
     let query = {}
     query.url=this.state.url;
     query.method=this.state.method;
     query.body=body;
-    let previous = this.state.storedQueries;
+    console.log(this.state.storedQueries);
+    let previous = this.state.storedQueries? this.state.storedQueries: [];
     previous.push(query);
     await this.setState({storedQueries: previous});
     localStorage.setItem('history',JSON.stringify(this.state.storedQueries));

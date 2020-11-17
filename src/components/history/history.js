@@ -7,8 +7,12 @@ class History extends React.Component{
       historyList:[],
     }
   }
-
-  // onClickHandle = ()=>{}
+  showHistoryList = ()=>{
+    let json = JSON.parse(localStorage.getItem('history'));
+    console.log(json);
+    // let history = json.map((item)=>{return item})
+    this.setState({historyList:json});
+  }
   render(){
     return(
       <div>
