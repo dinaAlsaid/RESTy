@@ -1,4 +1,5 @@
 import React from 'react';
+import superagent from 'superagent';
 import './form.scss';
 
 class Form extends React.Component {
@@ -7,21 +8,30 @@ class Form extends React.Component {
     this.state = {
       url: ' ',
       method: 'GET',
+      storedQueries:[],
     };
   }
   clickHandler = async (e) => {
     e.preventDefault();
-    if(document.getElementById('url').value !== ''){
-      await this.setState({ url: document.getElementById('url').value });
-    }else{
-      await this.setState({results : ['no url defined']})
-    }
-    fetch(this.state.url,{method:this.state.method})
-    .then(raw => raw.json())
+    await this.setState({ url: document.getElementById('url').value });
+    superagent(`${this.state.method}`,`${this.state.url}`)
     .then((data) => {
+      this.updateHistory(data.body);
       this.props.resultHandler(data);
-    });
+    }).catch(e=>{console.log(e)})
+    // .then(raw => raw.json())
+    
     document.getElementById('url').value = '';
+  }
+  updateHistory = async (body)=>{
+    let query = {}
+    query.url=this.state.url;
+    query.method=this.state.method;
+    query.body=body;
+    let previous = this.state.storedQueries;
+    previous.push(query);
+    await this.setState({storedQueries: previous});
+    localStorage.setItem('history',JSON.stringify(this.state.storedQueries));
   }
   methodHandler = async (e) => {
     e.preventDefault();
@@ -39,15 +49,14 @@ class Form extends React.Component {
             <button value='DELETE' onClick={this.methodHandler}>DELETE</button>
           </div>
           <div>
-            <input type='text' id='url' autoComplete='false'  data-testid='inputField'/>
-            <input type='submit' value='GO'  data-testid='submitBtn'/>
+            <input type='text' id='url' autoComplete='false' data-testid='inputField' />
+            <input type='submit' value='GO' data-testid='submitBtn' />
 
           </div>
         </form>
         <div className='output' >
           <div>{this.state.method}</div>
           <div data-testid='output'>{this.state.url}</div>
-           
         </div>
 
       </>
