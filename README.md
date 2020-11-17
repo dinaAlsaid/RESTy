@@ -1,4 +1,4 @@
-# LAB - Class 27
+# LAB - Class 28
 
 ## Project: RESTy
 
@@ -6,7 +6,8 @@
 
 ### Links and Resources
 
-<!-- - [ci/cd](http://xyz.com) (GitHub Actions)
+[deployment on github](https://dinaAlsaid.github.io/RESTy/)
+<!-- -  (GitHub Actions)
 - [back-end server url](http://xyz.com) (when applicable)
 - [front-end application](http://xyz.com) (when applicable) -->
 
@@ -14,7 +15,6 @@
 
 #### `.env` requirements
 
-i.e.
 
 - `PORT` - 3000
 
@@ -32,3 +32,7 @@ Test data is being fetched when form is submitted
 #### UML
 
 ![UML](./src/assets/lab28.png)
+
+#### Notes
+
+Did not finish the lab, did initial code, did not deploy.
