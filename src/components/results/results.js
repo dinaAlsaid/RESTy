@@ -26,7 +26,10 @@ class Results extends React.Component {
   }
   render() {
     return (
+      
       <div id='results'>
+        {/* {console.log("this.props form",this.props)} */}
+
         <If condition={this.props.resArr !== [] && this.props.headers !=='' && this.props.count!==''}>
           <Then>
           <ReactJson src={this.prettyJson()} theme='ashes' enableClipboard='false' />
