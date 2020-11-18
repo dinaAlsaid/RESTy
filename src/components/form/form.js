@@ -14,6 +14,9 @@ class Form extends React.Component {
   }
   clickHandler = async (e) => {
     e.preventDefault();
+    if(document.getElementById('errorSec')){
+      document.getElementById('errorSec').remove()
+    }
     this.createBuffering();
 
     if(this.state.method !== 'GET'){
@@ -33,6 +36,10 @@ class Form extends React.Component {
       if(document.getElementById('bufferImg')){
         document.getElementById('bufferImg').remove();
       }
+      let error = document.createElement('div');
+      error.textContent=e.message;
+      error.id='errorSec'
+      document.getElementById('output').insertAdjacentElement('afterend',error);
       console.log(e)})
     
     document.getElementById('url').value = '';
@@ -95,7 +102,7 @@ class Form extends React.Component {
             <input type='submit' value='GO' data-testid='submitBtn' />
           </div>
         </form>
-        <div className='output' >
+        <div className='output' id='output'>
           <div>{this.state.method}</div>
           <div data-testid='output'>{this.state.url}</div>
         </div>
