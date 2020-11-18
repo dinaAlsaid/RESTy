@@ -1,6 +1,7 @@
 import React from 'react';
 import superagent from 'superagent';
 import './form.scss';
+import { If, Then } from 'react-if';
 
 class Form extends React.Component {
   constructor(props) {
@@ -8,27 +9,37 @@ class Form extends React.Component {
     this.state = {
       url: ' ',
       method: 'GET',
-      storedQueries:[],
+      reqBody:[],
     };
   }
   clickHandler = async (e) => {
     e.preventDefault();
     this.createBuffering();
 
+    if(this.state.method !== 'GET'){
+      await this.setState({reqBody : document.getElementById('reqBody').value})
+    }
     await this.setState({ url: document.getElementById('url').value });
     superagent(`${this.state.method}`,`${this.state.url}`)
     .then((data) => {
+      if(this.state.url !== ''){
+
+      }
       this.updateHistory(data.body);
       this.props.resultHandler(data);
 
-    }).catch(e=>{
+    })
+    .catch(e=>{
       if(document.getElementById('bufferImg')){
         document.getElementById('bufferImg').remove();
       }
-      // this.props.resultHandler(e);
       console.log(e)})
     
     document.getElementById('url').value = '';
+    if(this.state.method !== 'GET'){
+      document.getElementById('reqBody').value='';
+    }
+
   }
   createBuffering = ()=>{
     let img = document.createElement('img');
@@ -39,16 +50,24 @@ class Form extends React.Component {
     document.getElementById('loading').appendChild(img);
   }
   updateHistory = async (body)=>{
-    await this.setState({storedQueries: JSON.parse(localStorage.getItem('history'))});
-    let query = {}
-    query.url=this.state.url;
-    query.method=this.state.method;
-    query.body=body;
-    console.log(this.state.storedQueries);
-    let previous = this.state.storedQueries? this.state.storedQueries: [];
-    previous.push(query);
-    await this.setState({storedQueries: previous});
-    localStorage.setItem('history',JSON.stringify(this.state.storedQueries));
+    let history;
+    let query ={
+      url:this.state.url,
+      method:this.state.method,
+    }
+    if(this.state.method !== 'GET'){
+      query.body = this.state.reqBody;
+    }
+    if(!localStorage.getItem('history')){
+      history =[];
+    }else{
+      history = JSON.parse(localStorage.getItem('history'));//suppose array
+      
+    }
+    history.push(query);
+    localStorage.setItem('history',JSON.stringify(history));
+
+
   }
   methodHandler = async (e) => {
     e.preventDefault();
@@ -60,15 +79,20 @@ class Form extends React.Component {
       <>
         <form onSubmit={this.clickHandler} data-testid='submitForm'>
           <div>
-            <button value='GET' onClick={this.methodHandler}>GET</button>
-            <button value='POST' onClick={this.methodHandler}>POST</button>
-            <button value='PUT' onClick={this.methodHandler}>PUT</button>
-            <button value='DELETE' onClick={this.methodHandler}>DELETE</button>
+            <button id='GET' value='GET' onClick={this.methodHandler}>GET</button>
+            <button id='POST' value='POST' onClick={this.methodHandler}>POST</button>
+            <button id='PUT' value='PUT' onClick={this.methodHandler}>PUT</button>
+            <button id='DELETE' value='DELETE' onClick={this.methodHandler}>DELETE</button>
           </div>
           <div>
-            <input type='text' id='url' autoComplete='false' data-testid='inputField' />
-            <input type='submit' value='GO' data-testid='submitBtn' />
+            <input type='text' id='url' placeholder='URL' autoComplete='false' data-testid='inputField' />
+            <If condition={this.state.method !== 'GET'}>
+              <Then>
+              <input type='textarea' id='reqBody' placeholder='Request Body' id='reqBody'/>
 
+              </Then>
+            </If>
+            <input type='submit' value='GO' data-testid='submitBtn' />
           </div>
         </form>
         <div className='output' >
