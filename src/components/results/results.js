@@ -21,13 +21,15 @@ class Results extends React.Component {
 
     return retObj;
   }
-  
+  componentDidUpdate(){
+    document.getElementById('bufferImg').remove();
+  }
   render() {
     return (
       <div id='results'>
         <If condition={this.props.resArr !== [] && this.props.headers !=='' && this.props.count!==''}>
           <Then>
-            <ReactJson src={this.prettyJson()} theme='ashes' enableClipboard='false' />
+          <ReactJson src={this.prettyJson()} theme='ashes' enableClipboard='false' />
           </Then>
           <Else>
             <div>No results</div>
