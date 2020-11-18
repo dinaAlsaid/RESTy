@@ -1,4 +1,4 @@
-# LAB - Class 27
+# LAB - Class 28
 
 ## Project: RESTy
 
@@ -6,15 +6,12 @@
 
 ### Links and Resources
 
-<!-- - [ci/cd](http://xyz.com) (GitHub Actions)
-- [back-end server url](http://xyz.com) (when applicable)
-- [front-end application](http://xyz.com) (when applicable) -->
+[deployment on github](https://dinaAlsaid.github.io/RESTy/)
+[deploymment on Netlify]()
 
 ### Setup
 
 #### `.env` requirements
-
-i.e.
 
 - `PORT` - 3000
 
@@ -31,4 +28,8 @@ Test data is being fetched when form is submitted
 
 #### UML
 
-![UML](./src/assets/lab27.png)
+![UML](./src/assets/lab28.png)
+
+#### Notes
+
+Did not finish the lab, did initial code, did not deploy.
