@@ -7,7 +7,7 @@
 ### Links and Resources
 
 [deployment on github](https://dinaAlsaid.github.io/RESTy/)
-[deploymment on Netlify]()
+[deploymment on Netlify](https://resty-401d5.netlify.app/)
 
 ### Setup
 
