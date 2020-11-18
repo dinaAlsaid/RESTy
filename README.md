@@ -7,14 +7,11 @@
 ### Links and Resources
 
 [deployment on github](https://dinaAlsaid.github.io/RESTy/)
-<!-- -  (GitHub Actions)
-- [back-end server url](http://xyz.com) (when applicable)
-- [front-end application](http://xyz.com) (when applicable) -->
+[deploymment on Netlify]()
 
 ### Setup
 
 #### `.env` requirements
-
 
 - `PORT` - 3000
 
